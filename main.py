@@ -7,7 +7,7 @@ import streamlit as st
 def mahalanobis(x, y, cov):
 
     diff = x - y
-    inv_cov = np.linalg.inv(cov)
+    inv_cov = np.linalg.pinv(cov)
     return np.sqrt(np.dot(np.dot(diff, inv_cov), diff.T))
     
 def Cal_Madistance(points, dataset):
