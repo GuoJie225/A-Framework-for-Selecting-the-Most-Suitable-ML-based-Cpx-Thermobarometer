@@ -4,7 +4,12 @@ import pandas as pd
 from io import BytesIO
 import streamlit as st
 
+def mahalanobis(x, y, cov):
 
+    diff = x - y
+    inv_cov = np.linalg.inv(cov)
+    return np.sqrt(np.dot(np.dot(diff, inv_cov), diff.T))
+    
 def Cal_Madistance(points, dataset):
     md = np.empty((points.shape[0], 1))
 
