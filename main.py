@@ -2,7 +2,6 @@ import os
 import numpy as np
 import pandas as pd
 from io import BytesIO
-from scipy.spatial.distance import mahalanobis
 import streamlit as st
 
 
