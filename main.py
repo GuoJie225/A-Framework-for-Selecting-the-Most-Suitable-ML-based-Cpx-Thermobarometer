@@ -234,4 +234,4 @@ if st.button('Get Result') and st.session_state.uploaded_file is not None:
     )
 
 elif st.session_state.uploaded_file is None:
-    st.text(':red[Please upload your data firstly.]')
+    st.error('Please upload your data firstly.')
