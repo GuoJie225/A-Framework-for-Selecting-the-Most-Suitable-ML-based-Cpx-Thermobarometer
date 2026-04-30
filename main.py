@@ -94,7 +94,7 @@ st.set_page_config(
 )
 
 st.title(':blue[A Framework for Selecting the Most Suitable ML-based Cpx Thermobarometer :earth_asia:]')
-st.markdown(':blue[Mahalanobis distance] quantitatively characterizes how well a new sample fits the applicability domain of each ML‑based Cpx thermobarometer. Higher prediction accuracy is achieved within the domain. This framework pre‑calculates the distance between your sample and each training dataset, helping you select the most reliable thermobarometer for your petrological application.')
+st.markdown(':blue[Mahalanobis distance] quantitatively characterizes how well a new sample fits the applicability domain of each ML‑based Cpx thermobarometer. \nHigher prediction accuracy is achieved within the domain. \nThis framework pre‑calculates the distance between your sample and each training dataset, helping you select the most reliable thermobarometer for your petrological application.')
 
 st.header('1. Prepare Your Data')
 st.session_state.model = st.radio("Choose your thermobarometer type: ", ["Cpx-Liq", "Cpx-only"])
