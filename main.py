@@ -86,6 +86,12 @@ tr_dict = {'P20': {'Cpx-only': P20.iloc[:, 1:11], 'Cpx-Liq': P20.iloc[:, 1:23]},
                   'J22': {'Cpx-only': J22.iloc[:, 1:13], 'Cpx-Liq': J22.iloc[:, 1:25]}, 'C23': {'Cpx-only': C23.iloc[:, 1:13]},
                   'AL24': {'Cpx-only': AL24.iloc[:, 1:10], 'Cpx-Liq': AL24.iloc[:, 1:19]}}
 
+st.set_page_config(
+    page_title="ML-based Cpx Thermobarometer",
+    layout="wide",  
+    initial_sidebar_state="auto"
+)
+
 st.title(':blue[A Framework for Selecting the Most Suitable ML-based Cpx Thermobarometer :earth_asia:]')
 st.markdown('')
 
