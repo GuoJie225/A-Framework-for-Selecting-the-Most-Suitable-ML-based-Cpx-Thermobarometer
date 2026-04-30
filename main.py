@@ -86,6 +86,7 @@ tr_dict = {'P20': {'Cpx-only': P20.iloc[:, 1:11], 'Cpx-Liq': P20.iloc[:, 1:23]},
                   'J22': {'Cpx-only': J22.iloc[:, 1:13], 'Cpx-Liq': J22.iloc[:, 1:25]}, 'C23': {'Cpx-only': C23.iloc[:, 1:13]},
                   'AL24': {'Cpx-only': AL24.iloc[:, 1:10], 'Cpx-Liq': AL24.iloc[:, 1:19]}}
 
+# web
 st.set_page_config(
     page_title="ML-based Cpx Thermobarometer",
     layout="wide",  
@@ -93,7 +94,9 @@ st.set_page_config(
 )
 
 st.title(':blue[A Framework for Selecting the Most Suitable ML-based Cpx Thermobarometer :earth_asia:]')
-st.markdown('')
+st.markdown(':blue[Mahalanobis distance] quantitatively characterizes how well a new sample fits the applicability domain of each ML‑based Cpx thermobarometer. \n
+            Higher prediction accuracy is achieved within the domain. \n
+            This framework pre‑calculates the distance between your sample and each training dataset, helping you select the most reliable thermobarometer for your petrological application.')
 
 st.header('1. Prepare Your Data')
 st.session_state.model = st.radio("Choose your thermobarometer type: ", ["Cpx-Liq", "Cpx-only"])
@@ -233,4 +236,4 @@ if st.button('Get Result') and st.session_state.uploaded_file is not None:
     )
 
 elif st.session_state.uploaded_file is None:
-    st.text('Please upload your data firstly.')
+    st.text(':red[Please upload your data firstly.]')
