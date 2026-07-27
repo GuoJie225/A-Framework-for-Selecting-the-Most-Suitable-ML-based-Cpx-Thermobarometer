@@ -30,41 +30,39 @@ def Cal_Recommendation_score(df, model):
         for i in range(3):
             col = df.columns[i]
             mod = models[i]
+            th = thresholds[mod][model]
 
-            df[mod + '_Domain'] = np.where(df[col] <= thresholds[mod][model], 'In', 'Out')
-            df[mod + '_P_score'] = np.where(df[col] <= thresholds[mod][model],
-                                                          accuracy_dict[mod][model][0] * 0.8 + (1-df[col]/thresholds[mod][model]) * 0.2, 0)
-            df[mod + '_T_score'] = np.where(df[col] <= thresholds[mod][model],
-                                                          accuracy_dict[mod][model][1] * 0.8 + (1-df[col]/thresholds[mod][model]) * 0.2, 0)
+            df[mod + '_Domain'] = np.where(df[col] <= th, 'In', 'Out')
+            
+            df[mod + '_P_score'] = np.where(df[col] <= th, np.maximum(0, accuracy_dict[mod][model][0] * 0.8 + (1 - df[col] / th) * 0.2), 0)
+            df[mod + '_T_score'] = np.where(df[col] <= th, np.maximum(0, accuracy_dict[mod][model][1] * 0.8 + (1 - df[col] / th) * 0.2), 0)
+
         P_cols = [mod + '_P_score' for mod in models]
         T_cols = [mod + '_T_score' for mod in models]
 
-        df['P_Recommendation'] = [i.split('_')[0] for i in df[P_cols].idxmax(axis=1)]
-        df['T_Recommendation'] = [i.split('_')[0] for i in df[T_cols].idxmax(axis=1)]
+        df['P_Recommendation'] = df[P_cols].apply(lambda row: '0' if row.max() == 0 else row.idxmax().split('_')[0], axis=1)
+        df['T_Recommendation'] = df[T_cols].apply(lambda row: '0' if row.max() == 0 else row.idxmax().split('_')[0], axis=1)
 
     if model == 'Cpx-only':
         models = ['P20', 'H21', 'J22', 'C23', 'AL24']
         for i in range(5):
             col = df.columns[i]
             mod = models[i]
-            df[mod + '_Domain'] = np.where(df[col] <= thresholds[mod][model], 'In', 'Out')
-            if mod == 'P20':
-                df[mod + '_P_score'] = np.where(df[col] <= thresholds[mod][model],
-                                                              accuracy_dict[mod][model][0] * 0.8 + (
-                                                                      1 - df[col] / thresholds[mod][model]) * 0.2, 0)
-            else:
-                df[mod + '_P_score'] = np.where(df[col] <= thresholds[mod][model],
-                                                          accuracy_dict[mod][model][0] * 0.8 + (
-                                                                      1 - df[col] / thresholds[mod][model]) * 0.2, 0)
-                df[mod + '_T_score'] = np.where(df[col] <= thresholds[mod][model],
-                                                          accuracy_dict[mod][model][1] * 0.8 + (
-                                                                      1 - df[col] / thresholds[mod][model]) * 0.2, 0)
-        P_cols = [mod + '_P_score' for mod in models]
-        T_cols = [mod + '_T_score' for mod in models]
-        T_cols.remove('P20_T_score')
+            th = thresholds[mod][model]
 
-        df['P_Recommendation'] = [i.split('_')[0] for i in df[P_cols].idxmax(axis=1)]
-        df['T_Recommendation'] = [i.split('_')[0] for i in df[T_cols].idxmax(axis=1)]
+            df[mod + '_Domain'] = np.where(df[col] <= th, 'In', 'Out')
+
+            df[mod + '_P_score'] = np.where(
+                df[col] <= th,
+                np.maximum(0, accuracy_dict[mod][model][0] * 0.8 + (1 - df[col] / th) * 0.2), 0)
+            if mod != 'P20':
+                df[mod + '_T_score'] = np.where(df[col] <= th, np.maximum(0, accuracy_dict[mod][model][1] * 0.8 + (1 - df[col] / th) * 0.2), 0)
+
+        P_cols = [mod + '_P_score' for mod in models]
+        T_cols = [mod + '_T_score' for mod in models if mod != 'P20']
+
+        df['P_Recommendation'] = df[P_cols].apply(lambda row: '0' if row.max() == 0 else row.idxmax().split('_')[0], axis=1)
+        df['T_Recommendation'] = df[T_cols].apply(lambda row: '0' if row.max() == 0 else row.idxmax().split('_')[0], axis=1)
 
     return df
 
