@@ -21,9 +21,9 @@ def Cal_Recommendation_score(df, model):
                   'J22': {'Cpx-only': 7.032, 'Cpx-Liq': 9.436}, 'C23': {'Cpx-only': 8.216},
                   'AL24': {'Cpx-only': 5.957, 'Cpx-Liq': 7.980}}
 
-    accuracy_dict = {'P20': {'Cpx-only': [1], 'Cpx-Liq': [0, 0]}, 'H21': {'Cpx-only': [0.605, 0.447]},
-                     'J22': {'Cpx-only': [0.558, 0], 'Cpx-Liq': [1, 1]}, 'C23': {'Cpx-only': [0, 1]},
-                     'AL24': {'Cpx-only': [0.558, 0.085], 'Cpx-Liq': [0.818, 0.978]}}
+    accuracy_dict = {'P20': {'Cpx-only': [1], 'Cpx-Liq': [0, 0]}, 'H21': {'Cpx-only': [0.553, 0.447]},
+                     'J22': {'Cpx-only': [0.511, 0], 'Cpx-Liq': [1, 1]}, 'C23': {'Cpx-only': [0, 1]},
+                     'AL24': {'Cpx-only': [0.511, 0.085], 'Cpx-Liq': [0.818, 0.978]}}
 
     if model == 'Cpx-Liq':
         models = ['P20', 'J22', 'AL24']
